@@ -193,12 +193,13 @@ h2 {
   border: none;
   background: #a9c5ca91;
   max-width: 450px;
-  height: 3rem;
+  height: 2rem;
   width: 100%;
   border-radius: 5px;
   outline-color: #8794ce;
   margin: 0.5rem 0 1rem;
   font-size: 1.2rem;
+  padding: 0.7rem;
 }
 
 .form-date-time {
@@ -300,7 +301,7 @@ h2 {
   .showcase-content {
     width: 90%;
   }
-  .card-cont{
+  .card-cont {
     width: 80%;
   }
   .card-cont > h2 {

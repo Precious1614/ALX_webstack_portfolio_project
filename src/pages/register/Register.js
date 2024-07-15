@@ -1,24 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import ImageSpace from "../../images/multitask-business.webp";
 import "../../component/todo/todo.css";
-import { useState } from "react";
 
 const Register = () => {
-  const [inputfullname, SetInputfullname] = useState("");
-  const [inputemail, SetInputEmail] = useState("");
-  const [inputpassword, SetInputPassword] = useState("");
+  const [inputFullname, setInputFullname] = useState("");
+  const [inputEmail, setInputEmail] = useState("");
+  const [inputPassword, setInputPassword] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (!inputfullname || !inputemail || !inputpassword) {
-      alert("kindly, input your details");
+    if (!inputFullname || !inputEmail || !inputPassword) {
+      alert("Kindly input your details");
     } else {
-      alert("login succesful");
+      const user = {
+        fullname: inputFullname,
+        email: inputEmail,
+        password: inputPassword,
+      };
+      localStorage.setItem("user", JSON.stringify(user));
+      alert("Registration successful. Please sign in.");
+      window.location.href = "/signin";
     }
-    SetInputfullname("");
-    SetInputEmail("");
-    SetInputPassword("");
+
+    setInputFullname("");
+    setInputEmail("");
+    setInputPassword("");
   }
 
   return (
@@ -30,32 +37,31 @@ const Register = () => {
           </div>
           <div className="register-cont-right">
             <div className="card-cont">
-              <h2>Login to your account</h2>
+              <h2>Register your account</h2>
               <form className="register-form-card" onSubmit={handleSubmit}>
                 <input
                   type="text"
                   name=""
-                  id="myfullname"
+                  id="myFullname"
                   placeholder="Fullname"
-                  value={inputfullname}
-                  onChange={(e) => SetInputfullname(e.target.value)}
+                  value={inputFullname}
+                  onChange={(e) => setInputFullname(e.target.value)}
                 />
                 <input
                   type="email"
                   name=""
-                  id="myemail"
+                  id="myEmail"
                   placeholder="Email"
-                  value={inputemail}
-                  onChange={(e) => SetInputEmail(e.target.value)}
+                  value={inputEmail}
+                  onChange={(e) => setInputEmail(e.target.value)}
                 />
-
                 <input
                   type="password"
                   name=""
-                  id="mypassword"
+                  id="myPassword"
                   placeholder="Password"
-                  value={inputpassword}
-                  onChange={(e) => SetInputPassword(e.target.value)}
+                  value={inputPassword}
+                  onChange={(e) => setInputPassword(e.target.value)}
                 />
                 <button className="save-btn">Register</button>
               </form>
