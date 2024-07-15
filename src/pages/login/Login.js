@@ -1,28 +1,27 @@
 import React, { useState } from "react";
-import ImageSpace from "../../images/multitask-business.webp";
+import { useNavigate } from "react-router-dom";
 import "../../component/todo/todo.css";
+import ImageSpace from "../../images/multitask-business.webp";
 
 const SignIn = () => {
-  const [inputEmail, setInputEmail] = useState("");
-  const [inputPassword, setInputPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  function handleSignIn(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const registeredUsers = JSON.parse(localStorage.getItem("users")) || [];
+    const user = registeredUsers.find(
+      (user) => user.email === email && user.password === password
+    );
 
-    if (
-      storedUser &&
-      storedUser.email === inputEmail &&
-      storedUser.password === inputPassword
-    ) {
+    if (user) {
       alert("Sign in successful");
-      window.location.href = "/todo";
+      navigate("/todo");
     } else {
       alert("Invalid email or password");
     }
-    setInputEmail("");
-    setInputPassword("");
-  }
+  };
 
   return (
     <div className="aa-showcase">
@@ -31,28 +30,29 @@ const SignIn = () => {
           <img className="image" src={ImageSpace} alt="" />
         </div>
         <div className="register-cont-right">
-          <div className="card-cont">
-            <h2>Sign in to your account</h2>
-            <form className="register-form-card" onSubmit={handleSignIn}>
-              <input
-                type="email"
-                name=""
-                id="signInEmail"
-                placeholder="Email"
-                value={inputEmail}
-                onChange={(e) => setInputEmail(e.target.value)}
-              />
-              <input
-                type="password"
-                name=""
-                id="signInPassword"
-                placeholder="Password"
-                value={inputPassword}
-                onChange={(e) => setInputPassword(e.target.value)}
-              />
-              <button className="save-btn">Sign In</button>
-            </form>
-          </div>
+          <h2>Sign In to Your Account</h2>
+          <form className="register-form-card" onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <button type="submit" className="save-btn">
+              Sign In
+            </button>
+          </form>
+          <p>
+            Don't have an account? <a href="/register">Register</a>
+          </p>
         </div>
       </div>
     </div>
